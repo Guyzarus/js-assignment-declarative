@@ -1,3 +1,10 @@
+/*
+In this assignment students are tasked with converting an imperative implementation of calculateTotal to a declarative implementation. 
+A skeleton is provided which includes the original imperative solution as well as the functions to be implemented for use in the final declarative solution. 
+Students should implement all of the commented out functions which have TODO in place of their function bodies. 
+Students should also complete all the type signatures in comments marked TODO above implemented functions.
+*/
+
 /**********/
 // EXAMPLES
 /**********/
@@ -29,24 +36,27 @@ const calculateTotalImperative = (items, tax) => {
 /**********/
 
 // prices: (items: [{price: number}]) -> [number]
-const prices = undefined; // TODO - Implementation
+const prices = (items) => items.map((item) => item.price);
 
 // sum: (numbers: [number]) -> number
-const sum = undefined; // TODO - Implementation
+const sum = (numbers) =>
+  numbers.reduce((accumulator, number) => {
+    return accumulator + number;
+  }, 0);
 
 // selectTaxable: (items: [{taxable: boolean}]) -> [{taxable: boolean}]
-const selectTaxable = undefined; // TODO - Implementation
+const selectTaxable = (items) => items.filter((item) => item.taxable);
 
 // applyTax: (prices: [number], tax: number) -> [number]
-const applyTax = undefined; // TODO - Implementation
+const applyTax = (prices, tax) => prices.map((price) => price * tax);
 
-// baseSum: TODO - Type Signature
-const baseSum = items => sum(prices(items));
+// baseSum: (items:[{price: number}]) -> number
+const baseSum = (items) => sum(prices(items));
 
-// taxSum: TODO - Type Signature
+// taxSum: (items:[{price: number}] , tax: number) -> number
 const taxSum = (items, tax) => sum(applyTax(prices(selectTaxable(items)), tax));
 
-// calculateTotalDeclarative: TODO - Type Signature
+// calculateTotalDeclarative: (items:[{price: number, taxable: boolean}], tax: number) -> number
 const calculateTotalDeclarative = (items, tax) =>
   baseSum(items) + taxSum(items, Math.abs(tax));
 
@@ -57,5 +67,5 @@ export default {
   applyTax,
   baseSum,
   taxSum,
-  calculateTotalDeclarative
+  calculateTotalDeclarative,
 };
